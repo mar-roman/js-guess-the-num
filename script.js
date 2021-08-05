@@ -11,15 +11,19 @@ function start() {
   //Генерация случайного числа от 1 до 100
   let randomNumber = Math.round(Math.random()*100); 
   console.log(randomNumber);
-  let num = +prompt('Угадай число от 1 до 100');
+  let num = prompt('Угадай число от 1 до 100');
   //Количество попыток
   let k = 10;
 
   //Новая попытка
   function attempt() {
-    if (isNaN(parseFloat(num) && isFinite(num)) && (num > 0)) {
-      num = +prompt('Введи число!');
-      attempt(num);
+    if (isNaN(parseFloat(num) && isFinite(num))) {
+      if (num === null) {
+        num = null;
+      } else {
+        num = prompt('Введи число!');
+        attempt(num);
+      } 
     }
   }
 
@@ -27,14 +31,14 @@ function start() {
 
   //Сравнивает число со сгенерированным и изменяет количество попыток
   function compair() {
-    if (num === randomNumber){
+    if (+num === randomNumber){
       let again = confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?');
       if(again){
         start();
       } else {
         finish();
       }
-    } else if(num === 0) {
+    } else if(num === null) {
       finish();
     } else {
       k--;
@@ -45,12 +49,12 @@ function start() {
         }
       } else {
         //Новая попытка угадать число
-        if (num > randomNumber){
-          num = +prompt('Загаданное число меньше, осталось попыток ' + k + ' Попробуй отгадать снова');
+        if (+num > randomNumber){
+          num = prompt('Загаданное число меньше, осталось попыток ' + k + '. Попробуй отгадать снова');
           attempt();
           compair();
         } else {
-          num = +prompt('Загаданное число больше, осталось попыток ' + k + ' Попробуй отгадать снова');
+          num = prompt('Загаданное число больше, осталось попыток ' + k + '. Попробуй отгадать снова');
           attempt();
           compair();
         }
